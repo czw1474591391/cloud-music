@@ -4,6 +4,7 @@ import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import * as apis from '@/apis/http';
 import router from '@/router';
+import '@/utils/iconfont/iconfont.js';
 
 const app = createApp(App);
 // 全局挂载http请求库
