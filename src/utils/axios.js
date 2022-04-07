@@ -22,7 +22,7 @@ instance.interceptors.request.use(
 
 // 添加响应拦截器
 instance.interceptors.response.use(
-  response => response,
+  response => (response.data.code !== 200 ? ElMessage.error('网络错误') : response.data),
   // 对响应数据做点什么;
   error => Promise.reject(error)
   // 对响应错误做点什么
