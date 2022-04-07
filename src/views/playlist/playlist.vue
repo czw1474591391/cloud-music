@@ -1,4 +1,4 @@
-<template>歌单</template>
+<template>歌单专区</template>
 
 <script setup></script>
 
