@@ -45,18 +45,12 @@ const menuList = reactive([
     icon: '#icon-wowode',
   },
 ]);
+
 const router = useRouter();
 const menuClick = path => {
   router.push({
     path,
   });
-};
-
-const handleOpen = (key, ketPath) => {
-  console.log(key, ketPath);
-};
-const handleClose = (key, keyPath) => {
-  console.log(key, keyPath);
 };
 </script>
 
