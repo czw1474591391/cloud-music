@@ -20,4 +20,14 @@ import Header from '@/layout/Header.vue';
   fill: currentColor;
   overflow: hidden;
 }
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 16px;
+}
 </style>
