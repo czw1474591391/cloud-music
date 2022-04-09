@@ -13,13 +13,6 @@ import SideBar from '@/layout/Sidebar.vue';
 import Header from '@/layout/Header.vue';
 </script>
 <style>
-.icon {
-  width: 2em;
-  height: 2em;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
-}
 ul {
   list-style: none;
 }
@@ -29,5 +22,8 @@ a {
   font-weight: bold;
   letter-spacing: 2px;
   font-size: 16px;
+}
+.el-card {
+  border-radius: 15px;
 }
 </style>
