@@ -23,7 +23,7 @@
           </div>
         </template>
         <template #default>
-          <div v-for="item in hotPlayList" :key="item.id" @click="toDetail(item.id)">
+          <div v-for="item in hotPlayList" :key="item.name" @click="toDetail(item.id)">
             <el-image :src="item.coverImgUrl" lazy></el-image>
             <p>{{ item.name }}</p>
             <span v-for="item2 in item.tags" :key="item2" class="tags">{{ item2 }}</span>
@@ -46,46 +46,24 @@ import { getCurrentInstance, reactive, onBeforeMount, ref, computed } from 'vue'
 import { useRouter } from 'vue-router';
 const { proxy } = getCurrentInstance();
 const router = useRouter();
-const hotMenu = reactive([
-  {
-    id: 0,
-    name: '流行',
-    class: 'hotMenuActive',
-  },
-  {
-    id: 1,
-    name: '华语',
-    class: '',
-  },
-  {
-    id: 2,
-    name: '民谣',
-    class: '',
-  },
-  {
-    id: 3,
-    name: '摇滚',
-    class: '',
-  },
-  {
-    id: 4,
-    name: '欧美',
-    class: '',
-  },
-]);
+const hotMenu = reactive([]);
+// 渲染静态菜单
+['流行', '华语', '民谣', '摇滚', '欧美'].forEach(name => {
+  hotMenu.push(name === '流行' ? { name, class: 'hotMenuActive' } : { name });
+});
 const hotPlayList = ref([]);
 const loading = ref(true);
 onBeforeMount(() => getHotPlatList());
 
-const getHotPlatList = async (cat = '流行') => {
-  const data = await proxy.$http.hotPlayList(6, cat);
+const getHotPlatList = async cat => {
+  const data = await proxy.$http.hotPlayList({ cat });
   hotPlayList.value = data.playlists;
   loading.value = false;
 };
 // 过滤菜单class属性
 const filterClass = e => {
   hotMenu.map(item => {
-    item.class = item.id === e.id ? 'hotMenuActive' : '';
+    item.class = item.name === e.name ? 'hotMenuActive' : '';
   });
   loading.value = true; // 每次切换热门歌单 将骨架屏loading打开
   getHotPlatList(e.name);
