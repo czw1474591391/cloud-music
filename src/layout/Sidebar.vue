@@ -1,5 +1,5 @@
 <template>
-  <el-row class="tac">
+  <el-row>
     <el-col>
       <el-menu default-active="0">
         <el-menu-item

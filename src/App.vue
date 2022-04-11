@@ -26,4 +26,14 @@ a {
 .el-card {
   border-radius: 15px;
 }
+.el-header {
+  height: 70px;
+}
+.el-aside {
+  height: calc(100vh - 70px);
+}
+.el-main {
+  padding: 0;
+  height: calc(100vh - 70px);
+}
 </style>
