@@ -4,42 +4,67 @@
       <h3>新碟上架</h3>
       <div class="newdisc-container">
         <ul class="newdisc-title-menu">
-          <li v-for="item in newDiscMenu" :key="item.name">
-            <a href="#">{{ item.name }}</a>
+          <li v-for="item in newDiscMenu" :key="item.name" @click="filterClass(item)">
+            <a href="#" :class="item.class">{{ item.name }}</a>
           </li>
         </ul>
       </div>
     </div>
     <el-row>
-      <el-col :span="6" v-for="item in props.NewDiscList" :key="item.id">
-        <el-row>
-          <el-col :span="12"
-            ><el-image style="width: 120px" :src="item.picUrl" :fit="contain"></el-image
-          ></el-col>
-          <el-col :span="12" style="background: #f0f0f0">{{ item.name }}</el-col>
-        </el-row>
-      </el-col>
+      <el-skeleton :loading="loading" animated :throttle="1000">
+        <template #template>
+          <div class="skeleton-container" v-for="i in 12" :key="i">
+            <el-skeleton-item variant="image" />
+          </div>
+        </template>
+
+        <template #default>
+          <el-col
+            :span="6"
+            style="margin-bottom: 20px"
+            v-for="item in props.newsDiscObj.NewDiscList"
+            :key="item.id"
+          >
+            <el-row>
+              <el-col :span="8"
+                ><el-image style="width: 120px" :src="item.picUrl" :fit="contain"></el-image
+              ></el-col>
+              <el-col :span="12" style="background: #f0f0f0">{{ item.name }}</el-col>
+            </el-row>
+          </el-col>
+        </template>
+      </el-skeleton>
     </el-row>
   </el-card>
 </template>
 
 <script setup>
-import { reactive, defineProps, watch } from 'vue';
+import { reactive, defineProps, watch, ref } from 'vue';
 const newDiscMenu = reactive([]);
 // 渲染静态菜单
 ['全部', '华语', '欧美', '韩国', '日本'].forEach(name => {
   newDiscMenu.push(name === '全部' ? { name, class: 'newDiscMenuActive' } : { name });
 });
+const loading = ref(true);
 const props = defineProps({
-  NewDiscList: {
-    type: Array,
-    default: [],
+  newsDiscObj: {
+    type: Object,
+    default: () => {},
   },
 });
-watch(
-  () => props.NewDiscList,
-  () => console.log(props.NewDiscList)
-);
+// watch(
+//   () => props.newsDiscObj.NewDiscList,
+//   () => (loading.value = false)
+// );
+// 过滤class Active类名 并向父组件发出请求
+const filterClass = e => {
+  newDiscMenu.map(item => {
+    item.class = item.name === e.name ? 'newDiscMenuActive' : '';
+  });
+  // 调用父组件方法请求数据
+  loading.value = true;
+  props.newsDiscObj.getNewDisc(e.name);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -59,6 +84,18 @@ watch(
   }
   .newDiscMenuActive {
     border-bottom: 5px solid rgb(129, 112, 112);
+  }
+}
+.el-skeleton {
+  display: flex;
+  .skeleton-container {
+    .el-skeleton__image {
+      width: 150px;
+      height: 150px;
+    }
+    display: flex;
+    flex: 1;
+    margin: 0 15px 15px 0;
   }
 }
 </style>

@@ -1,11 +1,17 @@
 <template>
   <Banners :List="bannerList" />
   <hot-play-list />
-  <news-Disc-Shelves :NewDiscList="NewDiscList" />
+  <news-Disc-Shelves
+    :newsDiscObj="{
+      NewDiscList,
+      getNewDisc,
+    }"
+  />
 </template>
 
 <script setup>
-import { getCurrentInstance, onBeforeMount, reactive, ref, watch } from 'vue';
+import { getCurrentInstance, onBeforeMount, ref } from 'vue';
+import { newsDisc } from '@/utils/enums.js';
 import { Banners, HotPlayList, newsDiscShelves } from '@/components';
 
 const { proxy } = getCurrentInstance();
@@ -22,8 +28,8 @@ const getBanners = async () => {
 };
 
 // 获取新碟上架数据
-const getNewDisc = async () => {
-  const data = await proxy.$http.newDiscShelves();
+const getNewDisc = async area => {
+  const data = await proxy.$http.newDiscShelves({ area: newsDisc[area] });
   NewDiscList.value = data.monthData.slice(0, 12);
 };
 </script>
