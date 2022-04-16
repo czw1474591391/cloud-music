@@ -11,29 +11,8 @@
 <script setup>
 import SideBar from '@/layout/Sidebar.vue';
 import Header from '@/layout/Header.vue';
+// import '@/utils/global.scss';
 </script>
-<style>
-ul {
-  list-style: none;
-}
-a {
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-  letter-spacing: 2px;
-  font-size: 16px;
-}
-.el-card {
-  border-radius: 15px;
-}
-.el-header {
-  height: 70px;
-}
-.el-aside {
-  height: calc(100vh - 70px);
-}
-.el-main {
-  padding: 0;
-  height: calc(100vh - 70px);
-}
+<style lang="scss">
+@import url('@/utils/global.scss');
 </style>
