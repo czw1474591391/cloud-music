@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <div class="newdisc-header">
-      <h3>新碟上架</h3>
+      <span class="card-title">新碟上架</span>
       <div class="newdisc-container">
         <ul class="newdisc-title-menu">
           <li v-for="item in newDiscMenu" :key="item.name" @click="filterClass(item)">
@@ -13,8 +13,13 @@
     <el-row>
       <el-skeleton :loading="loading" animated :throttle="1000">
         <template #template>
-          <div class="skeleton-container" v-for="i in 12" :key="i">
+          <div class="skeleton-container" v-for="i in 4" :key="i">
             <el-skeleton-item variant="image" />
+            <div class="skeleton-text">
+              <el-skeleton-item variant="text" />
+              <el-skeleton-item variant="text" />
+              <el-skeleton-item variant="text" />
+            </div>
           </div>
         </template>
 
@@ -74,10 +79,13 @@ const filterClass = e => {
 .newdisc-header {
   display: flex;
   align-items: center;
+  height: 1.8rem;
+
   .newdisc-title-menu {
     list-style: none;
     display: flex;
-    width: 400px;
+    width: 8rem;
+    height: 1.8rem;
     li {
       flex: 1;
     }
@@ -88,14 +96,34 @@ const filterClass = e => {
 }
 .el-skeleton {
   display: flex;
+  justify-content: space-between;
   .skeleton-container {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    margin: 0 15px 15px 0;
     .el-skeleton__image {
       width: 150px;
       height: 150px;
     }
-    display: flex;
-    flex: 1;
-    margin: 0 15px 15px 0;
+    .skeleton-text {
+      .el-skeleton__text:nth-child(1) {
+        width: 60px;
+      }
+      .el-skeleton__text:nth-child(2) {
+        margin-top: 20px;
+        width: 120px;
+      }
+      .el-skeleton__text:nth-child(3) {
+        margin-top: 20px;
+        width: 180px;
+      }
+      width: 5rem;
+      // height: 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 }
 </style>
