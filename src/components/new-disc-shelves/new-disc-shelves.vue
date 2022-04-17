@@ -1,14 +1,12 @@
 <template>
   <el-card>
-    <div class="newdisc-header">
+    <div class="title-header">
       <span class="card-title">新碟上架</span>
-      <div class="newdisc-container">
-        <ul class="newdisc-title-menu">
-          <li v-for="item in newDiscMenu" :key="item.name" @click="filterClass(item)">
-            <a href="#" :class="item.class">{{ item.name }}</a>
-          </li>
-        </ul>
-      </div>
+      <ul class="title-menu">
+        <li v-for="item in newDiscMenu" :key="item.name" @click="filterClass(item)">
+          <a href="#" :class="item.class">{{ item.name }}</a>
+        </li>
+      </ul>
     </div>
     <el-row>
       <el-skeleton :loading="loading" animated :throttle="1000">
@@ -24,17 +22,10 @@
         </template>
 
         <template #default>
-          <el-col
-            :span="6"
-            style="margin-bottom: 20px"
-            v-for="item in props.newsDiscObj.NewDiscList"
-            :key="item.id"
-          >
+          <el-col :span="5" v-for="item in props.newsDiscObj.NewDiscList" :key="item.id">
             <el-row>
-              <el-col :span="8"
-                ><el-image style="width: 120px" :src="item.picUrl" :fit="contain"></el-image
-              ></el-col>
-              <el-col :span="12" style="background: #f0f0f0">{{ item.name }}</el-col>
+              <el-col :span="11"><el-image :src="item.picUrl" :fit="cover"></el-image></el-col>
+              <el-col :span="13" class="newDisc_text">{{ item.name }}</el-col>
             </el-row>
           </el-col>
         </template>
@@ -48,7 +39,7 @@ import { reactive, defineProps, watch, ref } from 'vue';
 const newDiscMenu = reactive([]);
 // 渲染静态菜单
 ['全部', '华语', '欧美', '韩国', '日本'].forEach(name => {
-  newDiscMenu.push(name === '全部' ? { name, class: 'newDiscMenuActive' } : { name });
+  newDiscMenu.push(name === '全部' ? { name, class: 'MenuActive' } : { name });
 });
 const loading = ref(true);
 const props = defineProps({
@@ -57,14 +48,14 @@ const props = defineProps({
     default: () => {},
   },
 });
-// watch(
-//   () => props.newsDiscObj.NewDiscList,
-//   () => (loading.value = false)
-// );
+watch(
+  () => props.newsDiscObj.NewDiscList,
+  () => (loading.value = false)
+);
 // 过滤class Active类名 并向父组件发出请求
 const filterClass = e => {
   newDiscMenu.map(item => {
-    item.class = item.name === e.name ? 'newDiscMenuActive' : '';
+    item.class = item.name === e.name ? 'MenuActive' : '';
   });
   // 调用父组件方法请求数据
   loading.value = true;
@@ -76,27 +67,21 @@ const filterClass = e => {
 .el-card {
   margin-top: 15px;
 }
-.newdisc-header {
-  display: flex;
-  align-items: center;
-  height: 1.8rem;
-
-  .newdisc-title-menu {
-    list-style: none;
-    display: flex;
-    width: 8rem;
-    height: 1.8rem;
-    li {
-      flex: 1;
-    }
+.el-row {
+  justify-content: center;
+  .el-col-5 {
+    margin: 0 1.2rem 0.3rem 0;
   }
-  .newDiscMenuActive {
-    border-bottom: 5px solid rgb(129, 112, 112);
-  }
+}
+.newDisc_text {
+  background: #f0f0f0;
+  font-size: 0.5rem;
+  padding: 0.3rem;
 }
 .el-skeleton {
   display: flex;
   justify-content: space-between;
+
   .skeleton-container {
     display: flex;
     flex: 1;
@@ -108,7 +93,7 @@ const filterClass = e => {
     }
     .skeleton-text {
       .el-skeleton__text:nth-child(1) {
-        width: 60px;
+        width: 1rem;
       }
       .el-skeleton__text:nth-child(2) {
         margin-top: 20px;

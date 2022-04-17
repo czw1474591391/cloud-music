@@ -1,14 +1,12 @@
 <template>
   <el-card class="hot-card-container">
-    <div class="hot-title">
-      <h3>热门推荐</h3>
-      <div class="hotMenu-container">
-        <ul class="hotMenu">
-          <li v-for="(item, index) in hotMenu" :key="index" @click="filterClass(item)">
-            <a href="#" :class="item.class">{{ item.name }}</a>
-          </li>
-        </ul>
-      </div>
+    <div class="title-header">
+      <span class="card-title">热门推荐</span>
+      <ul class="title-menu">
+        <li v-for="item in hotMenu" :key="item.name" @click="filterClass(item)">
+          <a href="#" :class="item.class">{{ item.name }}</a>
+        </li>
+      </ul>
     </div>
     <div class="hot-items">
       <el-skeleton :loading="loading" animated :throttle="1000">
@@ -49,7 +47,7 @@ const router = useRouter();
 const hotMenu = reactive([]);
 // 渲染静态菜单
 ['流行', '华语', '民谣', '摇滚', '欧美'].forEach(name => {
-  hotMenu.push(name === '流行' ? { name, class: 'hotMenuActive' } : { name });
+  hotMenu.push(name === '流行' ? { name, class: 'MenuActive' } : { name });
 });
 const hotPlayList = ref([]);
 const loading = ref(true);
@@ -63,7 +61,7 @@ const getHotPlatList = async cat => {
 // 过滤菜单class属性
 const filterClass = e => {
   hotMenu.map(item => {
-    item.class = item.name === e.name ? 'hotMenuActive' : '';
+    item.class = item.name === e.name ? 'MenuActive' : '';
   });
   loading.value = true; // 每次切换热门歌单 将骨架屏loading打开
   getHotPlatList(e.name);
@@ -96,31 +94,13 @@ const toDetail = id => {
 }
 .hot-card-container {
   border-radius: 15px;
-  .hot-title {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    h3 {
-      margin: 0;
-    }
-    .hotMenu {
-      list-style: none;
-      display: flex;
-      width: 400px;
-      li {
-        flex: 1;
-      }
-    }
-    .hotMenuActive {
-      border-bottom: 5px solid rgb(129, 112, 112);
-    }
-  }
+
   .hot-items {
     display: flex;
     justify-content: space-around;
     > div {
       position: relative;
-      margin: 20px 40px 0 0;
+      margin: 0.1rem 0.5rem 0 0;
       .el-image {
         margin: 0;
       }
