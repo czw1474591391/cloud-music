@@ -12,9 +12,27 @@ ul {
 a {
   text-decoration: none;
   color: black;
-  font-weight: bold;
   letter-spacing: 2px;
-  font-size: 16px;
+  font-size: 0.3rem;
+}
+.title-header {
+  display: flex;
+  align-items: center;
+  height: 1.8rem;
+  .title-menu {
+    display: flex;
+    align-items: center;
+    width: 8rem;
+    height: 1.8rem;
+    margin-left: 1rem;
+    li {
+      flex: 1;
+      font-size: 0.1rem;
+    }
+  }
+}
+.MenuActive {
+  border-bottom: 5px solid rgb(129, 112, 112);
 }
 .el-card {
   border-radius: 15px;
