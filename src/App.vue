@@ -11,8 +11,7 @@
 <script setup>
 import SideBar from '@/layout/Sidebar.vue';
 import Header from '@/layout/Header.vue';
-// import '@/utils/global.scss';
 </script>
 <style lang="scss">
-@import url('@/utils/global.scss');
+@import '@/utils/global.scss';
 </style>
