@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { detailHeader } from '@/components';
+import { DetailHeader } from '@/components';
 import { onBeforeMount, getCurrentInstance } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();

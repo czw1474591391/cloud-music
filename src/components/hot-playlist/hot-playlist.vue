@@ -12,10 +12,7 @@
       <el-skeleton :loading="loading" animated :throttle="1000">
         <template #template>
           <div v-for="item in 6" :key="item" class="hot-skeleton-warp">
-            <el-skeleton-item
-              variant="image"
-              style="width: 227px; height: 227px; margin-bottom: 20px"
-            ></el-skeleton-item>
+            <el-skeleton-item variant="image" style=""></el-skeleton-item>
             <el-skeleton-item variant="text" style="width: 100px" />
             <el-skeleton-item variant="text" style="width: 200px" />
           </div>
@@ -103,13 +100,19 @@ const toDetail = id => {
       margin: 0.1rem 0.5rem 0 0;
       .el-image {
         margin: 0;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+        margin-bottom: 20px;
       }
       p {
-        font-size: 16px;
+        font-size: 1rem;
       }
       .tags {
-        font-size: 14px;
-        margin-right: 10px;
+        margin: 1rem 1rem 1rem 0;
+        font-size: 0.6rem;
+        color: rgb(124, 124, 124);
       }
       .tags::before {
         content: '#';

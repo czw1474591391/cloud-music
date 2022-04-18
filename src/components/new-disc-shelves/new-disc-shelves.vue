@@ -22,12 +22,18 @@
         </template>
 
         <template #default>
-          <el-col :span="5" v-for="item in props.newsDiscObj.NewDiscList" :key="item.id">
-            <el-row>
-              <el-col :span="11"><el-image :src="item.picUrl" :fit="cover"></el-image></el-col>
-              <el-col :span="13" class="newDisc_text">{{ item.name }}</el-col>
-            </el-row>
-          </el-col>
+          <div class="newDisc-item-container">
+            <div class="newDisc-item" v-for="item in props.newsDiscObj.NewDiscList" :key="item.id">
+              <el-image :src="item.picUrl" lazy></el-image>
+              <div class="newDisc_text">
+                <div class="album-type">{{ item.type }}</div>
+                <div class="album-name">
+                  {{ item.name }}
+                </div>
+                <div class="artist-name">{{ item.artist.name }}</div>
+              </div>
+            </div>
+          </div>
         </template>
       </el-skeleton>
     </el-row>
@@ -45,7 +51,7 @@ const loading = ref(true);
 const props = defineProps({
   newsDiscObj: {
     type: Object,
-    default: () => {},
+    default: {},
   },
 });
 watch(
@@ -64,20 +70,63 @@ const filterClass = e => {
 </script>
 
 <style lang="scss" scoped>
+.newDisc-item-container {
+  display: flex;
+  flex-wrap: wrap;
+  .newDisc-item {
+    display: flex;
+    width: 24%;
+    margin: 0 1rem 1rem 0;
+    .newDisc_text {
+      position: relative;
+      overflow: hidden;
+      .album-type {
+        position: absolute;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        right: -20px;
+        top: 5px;
+        font-size: 0.1rem;
+        transform: rotate(45deg);
+        text-align: center;
+        background: #ff641e;
+        color: white;
+      }
+      .album-name {
+        margin: 30px;
+        word-break: break-all;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .artist-name {
+        margin: 30px;
+      }
+    }
+    div:nth-child(1) {
+      width: 30%;
+      img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+    div:nth-child(2) {
+      width: 60%;
+    }
+  }
+  .newDisc-item:nth-child(4) {
+    margin-left: 0rem;
+  }
+}
 .el-card {
   margin-top: 15px;
 }
-.el-row {
-  justify-content: center;
-  .el-col-5 {
-    margin: 0 1.2rem 0.3rem 0;
-  }
-}
 .newDisc_text {
   background: #f0f0f0;
-  font-size: 0.5rem;
+  font-size: 0.3rem;
   padding: 0.3rem;
 }
+// 骨架屏样式
 .el-skeleton {
   display: flex;
   justify-content: space-between;
