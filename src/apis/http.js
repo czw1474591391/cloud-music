@@ -20,4 +20,7 @@ const playListDetail = (id = 6928102820) => get(`/playlist/detail?id=${id}`);
 const newDiscShelves = ({ offset = 0, limit = 12, type = 'new', area = 'all' } = {}) =>
   get(`/top/album?limit=${limit}&offset=${offset}&area=${area}&type=${type}`);
 
-export { search, banner, hotPlayList, playListDetail, newDiscShelves };
+// 获取所有榜单
+const allTopList = () => get('/toplist');
+
+export { search, banner, hotPlayList, playListDetail, newDiscShelves, allTopList };
