@@ -6,6 +6,9 @@ import * as apis from '@/apis/http';
 import router from '@/router';
 import '@/utils/rem.js'; // 引入rem布局方案
 import 'https://at.alicdn.com/t/font_2871490_x6fbkisuymm.js?spm=a313x.7781069.1998910419.117&file=font_2871490_x6fbkisuymm.js';
+import moment from 'moment';
+import 'moment/dist/locale/zh-cn';
+moment.locale('zh-cn');
 
 const app = createApp(App);
 // 全局挂载http请求库
