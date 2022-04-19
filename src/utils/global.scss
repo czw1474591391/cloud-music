@@ -2,6 +2,9 @@
   font-size: 1.5rem;
   font-weight: bold;
 }
+.el-card {
+  border-radius: 25px;
+}
 * {
   margin: 0;
   padding: 0;
@@ -34,9 +37,6 @@ a {
 }
 .MenuActive {
   border-bottom: 5px solid rgb(129, 112, 112);
-}
-.el-card {
-  border-radius: 15px;
 }
 .el-header {
   height: 70px;

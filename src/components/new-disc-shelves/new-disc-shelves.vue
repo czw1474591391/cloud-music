@@ -23,7 +23,7 @@
 
         <template #default>
           <div class="newDisc-item-container">
-            <div class="newDisc-item" v-for="item in props.newsDiscObj.NewDiscList" :key="item.id">
+            <div class="newDisc-item" v-for="item in NewDiscList" :key="item.id">
               <el-image :src="item.picUrl" lazy></el-image>
               <div class="newDisc_text">
                 <div class="album-type">{{ item.type }}</div>
@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { reactive, defineProps, watch, ref } from 'vue';
+import { reactive, defineProps, watch, ref, defineEmits } from 'vue';
 const newDiscMenu = reactive([]);
 // 渲染静态菜单
 ['全部', '华语', '欧美', '韩国', '日本'].forEach(name => {
@@ -49,13 +49,15 @@ const newDiscMenu = reactive([]);
 });
 const loading = ref(true);
 const props = defineProps({
-  newsDiscObj: {
-    type: Object,
-    default: {},
+  NewDiscList: {
+    type: Array,
+    default: [],
   },
 });
+const emit = defineEmits(['getNewDisc']);
+// 监听父组件数据变动  关闭骨架屏加载
 watch(
-  () => props.newsDiscObj.NewDiscList,
+  () => props.NewDiscList,
   () => (loading.value = false)
 );
 // 过滤class Active类名 并向父组件发出请求
@@ -65,7 +67,7 @@ const filterClass = e => {
   });
   // 调用父组件方法请求数据
   loading.value = true;
-  props.newsDiscObj.getNewDisc(e.name);
+  emit('getNewDisc', e.name);
 };
 </script>
 
@@ -134,29 +136,29 @@ const filterClass = e => {
   .skeleton-container {
     display: flex;
     flex: 1;
-    justify-content: space-between;
     margin: 0 15px 15px 0;
     .el-skeleton__image {
-      width: 150px;
-      height: 150px;
+      width: 10rem;
+      height: 10rem;
     }
     .skeleton-text {
       .el-skeleton__text:nth-child(1) {
-        width: 1rem;
+        width: 3rem;
       }
       .el-skeleton__text:nth-child(2) {
         margin-top: 20px;
-        width: 120px;
+        width: 6rem;
       }
       .el-skeleton__text:nth-child(3) {
         margin-top: 20px;
-        width: 180px;
+        width: 10rem;
       }
       width: 5rem;
       // height: 5rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      margin-left: 1rem;
     }
   }
 }

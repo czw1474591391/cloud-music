@@ -6,9 +6,18 @@
       </template>
       <template #default>
         <div class="top-list-item">
-          <div v-for="item in toplist" :key="item.name">
+          <div v-for="item in topList" :key="item.name">
             <h3>{{ item.name }}</h3>
-            {{ computed_Date(item.updateTime) }}
+            <div class="update">最近更新：{{ computed_Date(item.updateTime) }}</div>
+            <el-row v-for="tracks in item?.tracks" :key="tracks.name">
+              <el-col :span="5">
+                <el-image :src="tracks?.al?.picUrl" :fit="fit"></el-image>
+              </el-col>
+              <el-col :span="19"
+                ><p>{{ tracks.name }}</p>
+                <p>{{ tracks?.ar[0]?.name }}</p></el-col
+              >
+            </el-row>
           </div>
         </div>
       </template>
@@ -19,8 +28,6 @@
 <script setup>
 import { defineProps, watch, ref, computed } from 'vue';
 import moment from 'moment';
-import 'moment/locale/zh-cn';
-moment().locale('zh-cn');
 
 const props = defineProps({
   topList: {
@@ -28,20 +35,13 @@ const props = defineProps({
     default: {},
   },
 });
-console.log(moment.locale());
-const computed_Date = computed(() => date => {
-  console.log(moment(date).format('MMMM Do YYYY, h:mm:ss a'));
-  console.log(date);
-  return moment(date).format('MMM Do YY');
-});
-const toplist = ref({});
+// 使用moment处理日期格式
+const computed_Date = computed(() => date => moment(date).format('MMMDo'));
 const loading = ref(true);
 watch(
   () => props.topList,
   () => {
-    toplist.value = props.topList;
     loading.value = false;
-    console.log(toplist.value);
   }
 );
 </script>
@@ -58,6 +58,20 @@ watch(
       border-radius: 12px;
       box-shadow: 0 20px 27px #0000000d;
       background: #fff;
+      .update {
+        margin: 10px 0;
+        color: rgb(163, 163, 163);
+      }
+      .el-row {
+        margin: 20px 0;
+        .el-col-19 {
+          padding-top: 8px;
+        }
+        .el-image {
+          width: 3.5rem;
+          border-radius: 50%;
+        }
+      }
     }
   }
 }
