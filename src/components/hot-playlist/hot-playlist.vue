@@ -9,7 +9,7 @@
       </ul>
     </div>
     <div class="hot-items">
-      <el-skeleton :loading="loading" animated :throttle="1000">
+      <el-skeleton :loading="loading" animated>
         <template #template>
           <div v-for="item in 6" :key="item" class="hot-skeleton-warp">
             <el-skeleton-item variant="image" />
@@ -46,8 +46,6 @@ const hotMenu = reactive([]);
   hotMenu.push(name === '流行' ? { name, class: 'MenuActive' } : { name });
 });
 
-const loading = ref(true);
-
 const props = defineProps({
   hotList: {
     type: Array,
@@ -55,6 +53,8 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(['getHotPlatList']);
+
+const loading = ref(true);
 // 监听父组件传递的数据  有数据改动关闭骨架屏加载
 watch(
   () => props.hotList,
@@ -65,9 +65,7 @@ watch(
 
 // 过滤菜单class属性
 const filterClass = e => {
-  hotMenu.map(item => {
-    item.class = item.name === e.name ? 'MenuActive' : '';
-  });
+  hotMenu.map(item => (item.class = item.name === e.name ? 'MenuActive' : ''));
   loading.value = true; // 每次切换热门歌单 将骨架屏loading打开
   emit('getHotPlatList', e.name);
 };
@@ -98,7 +96,6 @@ const toDetail = id => {
   color: white;
 }
 .hot-card-container {
-
   .hot-items {
     display: flex;
     justify-content: space-around;

@@ -9,14 +9,16 @@
       </ul>
     </div>
     <el-row>
-      <el-skeleton :loading="loading" animated :throttle="1000">
+      <el-skeleton :loading="loading" animated>
         <template #template>
-          <div class="skeleton-container" v-for="i in 4" :key="i">
-            <el-skeleton-item variant="image" />
-            <div class="skeleton-text">
-              <el-skeleton-item variant="text" />
-              <el-skeleton-item variant="text" />
-              <el-skeleton-item variant="text" />
+          <div v-for="j in 4" :key="j">
+            <div class="skeleton-container" v-for="i in 3" :key="i">
+              <el-skeleton-item variant="image" />
+              <div class="skeleton-text">
+                <el-skeleton-item variant="text" />
+                <el-skeleton-item variant="text" />
+                <el-skeleton-item variant="text" />
+              </div>
             </div>
           </div>
         </template>
