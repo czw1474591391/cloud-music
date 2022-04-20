@@ -2,7 +2,23 @@
   <div class="top-list-container">
     <el-skeleton :loading="loading" animated>
       <template #template>
-        <el-skeleton-item variant="image" v-for="item in 4" :key="item" class="skeleton-img" />
+        <div class="top-list-item">
+          <div v-for="item in 4" :key="item">
+            <el-row>
+              <el-col :span="5"><el-skeleton-item variant="text" /></el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="15"><el-skeleton-item variant="text" /></el-col>
+            </el-row>
+            <div v-for="item1 in 6" :key="item1" class="skeleton-toplist-item">
+              <el-col :span="5"><el-skeleton-item variant="image" class="al" /></el-col>
+              <el-col :span="19">
+                <el-col :span="5"><el-skeleton-item variant="text" /></el-col>
+                <el-col :span="15"><el-skeleton-item variant="text" /></el-col>
+              </el-col>
+            </div>
+          </div>
+        </div>
       </template>
       <template #default>
         <div class="top-list-item">
@@ -40,9 +56,7 @@ const computed_Date = computed(() => date => moment(date).format('MMMDo'));
 const loading = ref(true);
 watch(
   () => props.topList,
-  () => {
-    loading.value = false;
-  }
+  () => (loading.value = false)
 );
 </script>
 
@@ -71,6 +85,20 @@ watch(
           width: 3.5rem;
           border-radius: 50%;
         }
+      }
+    }
+    .skeleton-toplist-item {
+      margin: 20px 0;
+      display: flex;
+      width: 100%;
+      .al {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 50%;
+      }
+      .el-col-19 {
+        display: flex;
+        flex-direction: column;
       }
     }
   }
