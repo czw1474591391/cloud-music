@@ -25,7 +25,12 @@
 
         <template #default>
           <div class="newDisc-item-container">
-            <div class="newDisc-item" v-for="item in NewDiscList" :key="item.id">
+            <div
+              class="newDisc-item"
+              v-for="item in NewDiscList"
+              :key="item.id"
+              @click="toAlbumDetail(item.id)"
+            >
               <el-image :src="item.picUrl" lazy></el-image>
               <div class="newDisc_text">
                 <div class="album-type">{{ item.type }}</div>
@@ -44,6 +49,7 @@
 
 <script setup>
 import { reactive, defineProps, watch, ref, defineEmits } from 'vue';
+import { useRouter } from 'vue-router';
 const newDiscMenu = reactive([]);
 // 渲染静态菜单
 ['全部', '华语', '欧美', '韩国', '日本'].forEach(name => {
@@ -70,6 +76,16 @@ const filterClass = e => {
   // 调用父组件方法请求数据
   loading.value = true;
   emit('getNewDisc', e.name);
+};
+
+const router = useRouter();
+const toAlbumDetail = id => {
+  router.push({
+    path: '/album',
+    query: {
+      id,
+    },
+  });
 };
 </script>
 
