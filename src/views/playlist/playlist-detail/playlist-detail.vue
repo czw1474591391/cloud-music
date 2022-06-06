@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :span="16">
-      <detail-header />
+      <detail-header :playlist="playList?.playlist" />
     </el-col>
     <el-col :span="7" :offset="1">
       <div>51531</div>
@@ -10,16 +10,18 @@
 </template>
 
 <script setup>
+import { playListDetail } from '@/apis/http';
 import { DetailHeader } from '@/components';
-import { onBeforeMount, getCurrentInstance } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
-const route = useRoute();
-const { proxy } = getCurrentInstance();
 
 onBeforeMount(() => getplaylistDetail());
+
+const route = useRoute();
+const playList = ref({});
 const getplaylistDetail = async () => {
-  const data = await proxy.$http.playListDetail(route.params.id);
-  console.log(data);
+  const data = await playListDetail(route.query.id);
+  playList.value = data;
 };
 </script>
 

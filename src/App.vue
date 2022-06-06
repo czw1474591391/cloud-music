@@ -9,8 +9,8 @@
 </template>
 
 <script setup>
-import SideBar from '@/layout/Sidebar.vue';
-import Header from '@/layout/Header.vue';
+import SideBar from '@/layout/Sidebar';
+import Header from '@/layout/Header';
 </script>
 <style lang="scss">
 @import '@/utils/global.scss';

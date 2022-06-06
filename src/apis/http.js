@@ -27,7 +27,7 @@ const hotPlayList = ({ limit = 6, cat = '流行' }) => get(`/top/playlist?limit=
  * @property {number} id 歌单id
  * @returns
  */
-const playListDetail = (id = 6928102820) => get(`/playlist/detail?id=${id}`);
+const playListDetail = id => get(`/playlist/detail?id=${id}`);
 
 /**
  * 获取新碟上架

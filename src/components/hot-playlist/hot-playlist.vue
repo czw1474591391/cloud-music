@@ -76,9 +76,9 @@ const computed_Count = computed(() => num => (num % 1000) + '万');
 const toDetail = id => {
   // 传递参数使用query的话，指定path或者name都行，但使用params的话，只能使用name指定
   router.push({
-    // path: '/playlist/detail',
-    name: 'playlist-detail',
-    params: {
+    path: '/playlist/detail',
+    // name: 'playlist-detail',
+    query: {
       id,
     },
   });

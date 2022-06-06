@@ -8,27 +8,27 @@ const routes = [
   {
     path: '/index',
     name: 'index',
-    component: () => import('@/views/index/index.vue'),
+    component: () => import('@/views/index/index'),
   },
   {
     path: '/playlist',
     name: 'playlist',
-    component: () => import('@/views/playlist/playlist.vue'),
+    component: () => import('@/views/playlist/playlist'),
   },
   {
     path: '/playlist/detail',
     name: 'playlist-detail',
-    component: () => import('@/views/playlist/playlist-detail/playlist-detail.vue'),
+    component: () => import('@/views/playlist/playlist-detail/playlist-detail'),
   },
   {
     path: '/singer',
     name: 'singer',
-    component: () => import('@/views/singer/singer.vue'),
+    component: () => import('@/views/singer/singer'),
   },
   {
     path: '/myMusic',
     name: 'myMusic',
-    component: () => import('@/views/myMusic/myMusic.vue'),
+    component: () => import('@/views/myMusic/myMusic'),
   },
 ];
 

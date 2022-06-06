@@ -27,7 +27,7 @@
             <div class="update">最近更新：{{ computed_Date(item.updateTime) }}</div>
             <el-row v-for="tracks in item?.tracks" :key="tracks.name">
               <el-col :span="5">
-                <el-image :src="tracks?.al?.picUrl" :fit="fit"></el-image>
+                <el-image :src="tracks?.al.picUrl" fit="fit"></el-image>
               </el-col>
               <el-col :span="19"
                 ><p>{{ tracks.name }}</p>
