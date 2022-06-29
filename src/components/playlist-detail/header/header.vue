@@ -2,19 +2,22 @@
   <div class="detail-header-container">
     <el-row class="detail-header" :gutter="48">
       <el-col :span="6">
-        <el-image class="header-img" fit="cover" :src="props.playlist?.coverImgUrl" />
+        <el-image class="header-img" fit="cover" :src="playlist?.coverImgUrl" />
       </el-col>
       <el-col :span="17">
         <el-card>
-          <el-row>
-            <h3>{{ props.playlist?.name }}</h3>
+          <el-row class="title">
+            <h3>{{ playlist?.name }}</h3>
+            <div class="tags">
+              <div v-for="tag in playlist?.tags" class="tags-item">{{tag}}</div>
+            </div>
           </el-row>
           <el-row class="creator">
             <el-col :span="2"
-              ><el-avatar :size="40" :src="props.playlist.creator?.avatarUrl" />
+              ><el-avatar :size="40" :src="playlist.creator?.avatarUrl" />
             </el-col>
-            <el-col :span="6">{{ props.playlist.creator?.description }}</el-col>
-            <el-col :span="4">{{ moment(props.playlist?.createTime).format('L') }}</el-col>
+            <el-col :span="6">{{ playlist.creator?.description }}</el-col>
+            <el-col :span="4">{{ moment(playlist?.createTime).format('L') }}</el-col>
           </el-row>
 
           <el-row>
@@ -25,8 +28,9 @@
                   v-for="item in initIcon"
                   :size="'1rem'"
                   :mrgLeft="'0.5rem'"
-                  >{{ computed_num(props.playlist[`${item.content}`]) }}</custom-svg
                 >
+                  {{ computed_num(playlist[`${item?.content || '--'}`]) }}
+                </custom-svg>
               </div>
             </el-col>
           </el-row>
@@ -34,7 +38,7 @@
           <el-row>
             <el-col>
               <h4>歌单简介:</h4>
-              <p class="playlist-introduce">{{ props.playlist?.description }}</p>
+              <p class="playlist-introduce">{{ playlist?.description }}</p>
             </el-col>
           </el-row>
         </el-card>
@@ -55,7 +59,7 @@ const props = defineProps({
   },
 });
 const initIcon = ref([]);
-const computed_num = computed(() => item => {
+const computed_num = computed(() => (item = '--') => {
   item = item + '';
   return item > 10000 ? item?.substr(0, item.length - 4) + '万次' : item;
 });
@@ -89,13 +93,25 @@ watch(
   margin-bottom: 20px;
 }
 .detail-header-container {
+  .title {
+    display: flex;
+    justify-content: space-between;
+    .tags{
+      display: flex;
+      .tags-item::before{
+        content: '#';
+        color:red;
+        margin-right: 2px;
+      }
+    }
+  }
   .creator {
     display: flex;
     align-items: center;
   }
   .header-img {
-    width: 250px;
-    border-radius: 15px;
+    height: 100%;
+    border-radius: 10px;
   }
   ::v-deep(.el-col-17) {
     padding: 0 !important;

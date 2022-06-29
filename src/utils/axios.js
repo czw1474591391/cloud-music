@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  timeout: 1000 * 60,
+  timeout: 12000,
   // `withCredentials` 表示跨域请求时是否需要使用凭证
   withCredentials: true,
   // `validateStatus` 定义对于给定的HTTP 响应状态码是 resolve 或 reject  promise 。
@@ -28,9 +28,8 @@ instance.interceptors.response.use(
   // 对响应错误做点什么
 );
 
-const ajaxMethod = ['get', 'post'];
 const api = {};
-ajaxMethod.forEach(method => {
+['get', 'post'].forEach(method => {
   api[method] = (uri, data, config) => {
     return new Promise((resolve, reject) => {
       instance[method](uri, data, config)

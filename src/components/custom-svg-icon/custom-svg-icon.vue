@@ -1,7 +1,7 @@
 <template>
   <div>
-    <svg class="icon" :width="props.size" :height="props.size" aria-hidden="true">
-      <use :href="`#${props.icon}`"></use>
+    <svg class="icon" :width="size" :height="size" aria-hidden="true">
+      <use :href="`#${icon}`"></use>
     </svg>
     <span :style="`margin-left: ${mrgLeft}`" class="content"> <slot></slot></span>
   </div>
